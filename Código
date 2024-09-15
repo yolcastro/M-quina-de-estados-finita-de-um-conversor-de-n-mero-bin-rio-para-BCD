@@ -1,0 +1,82 @@
+module binparabcd(
+    input logic clk, rst, start,
+    input logic [7:0] bin,
+    output logic ready, done_tick,
+    output logic [11:0] bcd
+);
+
+typedef enum {idle, op_load, op_shift, done} state_type;
+state_type state_reg, state_next;
+
+logic [11:0] bcd_reg, bcd_next;
+logic [3:0] contar_bits;
+logic [7:0] bin_reg;
+
+always_ff @(posedge clk, posedge rst) begin
+    if (rst) begin
+        state_reg <= idle;
+        bcd_reg <= 12'b0;
+        contar_bits <= 4'd0;
+        bin_reg <= 8'b0;
+    end
+
+    else begin
+        state_reg <= state_next;
+        bcd_reg <= bcd_next;
+        if (state_reg == op_load) begin
+            bin_reg <= bin;
+            contar_bits <= 4'd0;
+        end
+        else
+        if (state_reg == op_shift) begin
+            contar_bits <= contar_bits + 1;
+        end
+    end
+end
+
+always_comb begin
+    state_next = state_reg;
+    ready = 1'b0;
+    done_tick = 1'b0;
+    bcd_next = bcd_reg;
+    
+    case (state_reg)
+    idle: begin
+        ready = 1'b1;
+        if (start) begin
+            state_next = op_load;
+        end
+    end
+    
+    op_load: begin
+        bcd_next = 12'b0;
+        state_next = op_shift;
+    end
+
+    op_shift: begin
+        if (contar_bits < 8) begin
+            if (bcd_next[11:8] > 4)
+                bcd_next[11:8] = bcd_next[11:8]  + 3;
+            if (bcd_next[7:4] > 4)
+                bcd_next[7:4] = bcd_next[7:4] + 3;
+            if (bcd_next[3:0] > 4)
+                bcd_next[3:0] = bcd_next[0:3] + 3;
+            bcd_next = bcd_next << 1;
+            bcd_next[0] = bin_reg[7 - contar_bits];
+        end
+        else begin
+            state_next = done;
+        end
+    end
+
+done: begin
+    done_tick = 1'b1;
+    state_next = idle;
+end
+
+default: state_next = idle;
+    endcase
+end
+
+assign bcd = bcd_reg;
+endmodule
