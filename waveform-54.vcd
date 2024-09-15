@@ -1,0 +1,150 @@
+$date
+	Sun Sep 15 16:44:12 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_binparabcd $end
+$var wire 1 ! ready $end
+$var wire 1 " done_tick $end
+$var wire 12 # bcd [11:0] $end
+$var reg 8 $ bin [7:0] $end
+$var reg 1 % clk $end
+$var reg 1 & rst $end
+$var reg 1 ' start $end
+$scope module uut $end
+$var wire 12 ( bcd [11:0] $end
+$var wire 8 ) bin [7:0] $end
+$var wire 1 % clk $end
+$var wire 1 & rst $end
+$var wire 1 ' start $end
+$var reg 12 * bcd_next [11:0] $end
+$var reg 12 + bcd_reg [11:0] $end
+$var reg 8 , bin_reg [7:0] $end
+$var reg 4 - contar_bits [3:0] $end
+$var reg 1 " done_tick $end
+$var reg 1 ! ready $end
+$var integer 32 . state_next [31:0] $end
+$var integer 32 / state_reg [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 /
+b0 .
+b0 -
+b0 ,
+b0 +
+b0 *
+bx )
+b0 (
+x'
+1&
+0%
+bx $
+b0 #
+0"
+1!
+$end
+#5
+b1 .
+1!
+1'
+b110110 $
+b110110 )
+0&
+#15
+b1 /
+0!
+b10 .
+0'
+1%
+#25
+0%
+#35
+b110110 ,
+b10 /
+1%
+#45
+0%
+#55
+b1 -
+1%
+#65
+0%
+#75
+b1 *
+b10 -
+1%
+#85
+0%
+#95
+b11 *
+b11 -
+b1 #
+b1 (
+b1 +
+1%
+#105
+0%
+#115
+b110 *
+b100 -
+b11 #
+b11 (
+b11 +
+1%
+#125
+0%
+#135
+b10011 *
+b101 -
+b110 #
+b110 (
+b110 +
+1%
+#145
+0%
+#155
+b100111 *
+b110 -
+b10011 #
+b10011 (
+b10011 +
+1%
+#165
+0%
+#175
+b1010100 *
+b111 -
+b100111 #
+b100111 (
+b100111 +
+1%
+#185
+0%
+#195
+b11 .
+b1000 -
+b1010100 #
+b1010100 (
+b1010100 +
+1%
+#205
+0%
+#215
+b0 .
+1"
+b1001 -
+b11 /
+1%
+#225
+0%
+#275
